@@ -23,6 +23,7 @@ public partial class PlayerCannon : CharacterBody3D
 
 	public PackedScene BallScene;
 	public Node3D BallSpawnPoint;
+	public AudioStreamPlayer3D shootAudioPlayer;
 
 	public override void _Ready()
 	{
@@ -37,6 +38,7 @@ public partial class PlayerCannon : CharacterBody3D
 
 		BallSpawnPoint = GetNode<Node3D>("CannonBarrel/CannonBallSpawnPoint");
 		BallScene = GD.Load<PackedScene>("res://scenes/player_cannon/cannon_ball/CannonBall.tscn");
+		shootAudioPlayer = GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
 
 	}
 
@@ -129,6 +131,7 @@ public partial class PlayerCannon : CharacterBody3D
 
 		ball.ApplyCentralImpulse(direction * force);
 
+		shootAudioPlayer.Play();
 		GetTree().Root.AddChild(ball);
 	}
 	// while aiming:
