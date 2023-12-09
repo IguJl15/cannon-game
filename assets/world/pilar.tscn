@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtkibahp3w85q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f1fpl"]
+size = Vector3(0.25, 2.5, 0.25)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n04v1"]
+noise_type = 4
+frequency = 0.1965
+fractal_octaves = 2
+fractal_lacunarity = 1.045
+fractal_ping_pong_strength = -3.865
+domain_warp_type = 1
+domain_warp_amplitude = 41.32
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6wfpr"]
+bump_strength = 7.0
+noise = SubResource("FastNoiseLite_n04v1")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_urw8l"]
+as_normal_map = true
+bump_strength = 3.6
+noise = SubResource("FastNoiseLite_n04v1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5nws"]
+albedo_color = Color(0.32549, 0.2, 0.0196078, 1)
+albedo_texture = SubResource("NoiseTexture2D_6wfpr")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_urw8l")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ft2da"]
+material = SubResource("StandardMaterial3D_s5nws")
+size = Vector3(0.25, 2.5, 0.25)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+collision_layer = 256
+collision_mask = 275
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_f1fpl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ft2da")

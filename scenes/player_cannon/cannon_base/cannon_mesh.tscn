@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsobub0imrcpr"]
+
+[ext_resource type="PackedScene" uid="uid://cf33b67sevxae" path="res://assets/cannon/Mesh/cannon_mesh.glb" id="1_daw0k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfsuf"]
+albedo_color = Color(0.32549, 0.2, 0.0196078, 1)
+
+[node name="CannonBase" instance=ExtResource("1_daw0k")]
+
+[node name="cannon_body" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_sfsuf")

@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhli0agcfogi5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yicip"]
+radius = 0.1
+
+[sub_resource type="Gradient" id="Gradient_xh71l"]
+colors = PackedColorArray(0.269104, 0.172022, 0.0197731, 1, 0.0724171, 0.0344442, 0.00211956, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0nbif"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ax3vw"]
+in_3d_space = true
+color_ramp = SubResource("Gradient_xh71l")
+noise = SubResource("FastNoiseLite_0nbif")
+
+[sub_resource type="Gradient" id="Gradient_m0hjb"]
+colors = PackedColorArray(0.0110876, 0.0110876, 0.0110876, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8hpju"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0oubs"]
+invert = true
+in_3d_space = true
+color_ramp = SubResource("Gradient_m0hjb")
+noise = SubResource("FastNoiseLite_8hpju")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78odj"]
+albedo_texture = SubResource("NoiseTexture2D_ax3vw")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_0oubs")
+
+[sub_resource type="SphereMesh" id="SphereMesh_lun8w"]
+lightmap_size_hint = Vector2i(5, 3)
+material = SubResource("StandardMaterial3D_78odj")
+radius = 0.1
+height = 0.2
+
+[node name="CannonBall" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 273
+mass = 3.5
+continuous_cd = true
+can_sleep = false
+freeze_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_yicip")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_lun8w")

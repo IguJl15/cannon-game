@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://dosmmjp886qi7"]
+
+[ext_resource type="PackedScene" uid="uid://xqftolc3m46u" path="res://scenes/player_cannon/PlayerCannon.tscn" id="1_04hr7"]
+[ext_resource type="PackedScene" uid="uid://bluv3kmjc2vbg" path="res://assets/world/ground.glb" id="2_w6t8y"]
+[ext_resource type="PackedScene" uid="uid://chyref0owiful" path="res://assets/world/torre.tscn" id="3_gl3x3"]
+[ext_resource type="PackedScene" uid="uid://4q333s36wqqy" path="res://assets/world/casa.tscn" id="4_j57y5"]
+
+[sub_resource type="Gradient" id="Gradient_c0vsf"]
+offsets = PackedFloat32Array(0, 0.994737)
+colors = PackedColorArray(0.63, 0.864333, 1, 1, 0.35, 0.35, 0.35, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a6xyf"]
+gradient = SubResource("Gradient_c0vsf")
+fill_from = Vector2(0, 0.461538)
+fill_to = Vector2(0, 0.534188)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_31jrw"]
+panorama = SubResource("GradientTexture2D_a6xyf")
+
+[sub_resource type="Sky" id="Sky_gs2nu"]
+sky_material = SubResource("PanoramaSkyMaterial_31jrw")
+
+[sub_resource type="Environment" id="Environment_kdoup"]
+background_mode = 2
+sky = SubResource("Sky_gs2nu")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.52
+ambient_light_energy = 0.2
+ssao_enabled = true
+adjustment_brightness = 1.31
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i7pir"]
+size = Vector3(50, 1, 80)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kdoup")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.625, -0.216506, -0.75, 0.75, 0.433012, 0.5, 0.216506, -0.875, 0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="PlayerCannon" parent="." instance=ExtResource("1_04hr7")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -10.1504, 0.620561, -2.74976)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 275
+collision_mask = 275
+
+[node name="ground" parent="StaticBody3D" instance=ExtResource("2_w6t8y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.19899, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D/ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_i7pir")
+
+[node name="Node3D" parent="." instance=ExtResource("3_gl3x3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -12)
+
+[node name="Node3D2" parent="." instance=ExtResource("4_j57y5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.71187, 0.5, -12.033)
+
+[editable path="StaticBody3D/ground"]

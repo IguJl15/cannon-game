@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://xqftolc3m46u"]
+
+[ext_resource type="Script" path="res://scenes/player_cannon/PlayerCannon.cs" id="1_hh78h"]
+[ext_resource type="PackedScene" uid="uid://cofw87nr0dm1q" path="res://scenes/player_cannon/cannon_barrel/cannon_barrel_mesh.tscn" id="2_ixirq"]
+[ext_resource type="PackedScene" uid="uid://bsobub0imrcpr" path="res://scenes/player_cannon/cannon_base/cannon_mesh.tscn" id="3_sfb8y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h8i6m"]
+size = Vector3(0.926, 0.652, 1.3)
+
+[node name="PlayerCannon" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841369, 0)
+collision_layer = 3
+collision_mask = 272
+script = ExtResource("1_hh78h")
+
+[node name="CannonBarrel" parent="." instance=ExtResource("2_ixirq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762, 0.199)
+
+[node name="CannonBase" parent="." instance=ExtResource("3_sfb8y")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="BaseCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.321425, 0.578903)
+shape = SubResource("BoxShape3D_h8i6m")
+
+[node name="TwistPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77, 0.21)
+
+[node name="PitchPivot" type="Node3D" parent="TwistPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 3.12924e-07, 0, -3.12924e-07, 1, 0.5, 0, 3)
+fov = 50.0
+near = 0.064
