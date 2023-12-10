@@ -38,4 +38,3 @@ near = 0.064
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_qbc3q")
 volume_db = -10.959
-doppler_tracking = 1

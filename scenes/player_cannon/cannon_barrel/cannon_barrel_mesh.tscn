@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cofw87nr0dm1q"]
+[gd_scene load_steps=16 format=3 uid="uid://cofw87nr0dm1q"]
 
 [ext_resource type="PackedScene" uid="uid://c5k1kg2y7jlo5" path="res://assets/cannon/Mesh/cannon_barrel_mesh.glb" id="1_ch6ee"]
 
@@ -41,6 +41,31 @@ subsurf_scatter_strength = 1.0
 subsurf_scatter_texture = SubResource("NoiseTexture2D_x3fy8")
 detail_mask = SubResource("NoiseTexture2D_yvvhg")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckm62"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 0.316667, 0, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_tjj30"]
+material = SubResource("StandardMaterial3D_ckm62")
+radius = 0.05
+height = 0.1
+radial_segments = 4
+rings = 1
+
+[sub_resource type="Curve" id="Curve_22cav"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.932806, 0), -1.66447, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jn6nc"]
+offsets = PackedFloat32Array(0, 0.144144, 0.382883)
+colors = PackedColorArray(1, 0.2, 0.0352941, 1, 0.921569, 0.733333, 0.101961, 1, 0.34902, 0.254902, 0.254902, 1)
+
+[sub_resource type="Gradient" id="Gradient_b1kym"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0.391006, 0.288168, 0.288136, 1)
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wvq5y"]
 radius = 0.2
 
@@ -51,8 +76,25 @@ transform = Transform3D(-0.269146, 0, 0, 0, -0.269146, 0, 0, 0, -0.269146, 0, 0,
 material_override = SubResource("StandardMaterial3D_7w8nw")
 
 [node name="CannonBallSpawnPoint" type="Node3D" parent="." index="1"]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9)
+
+[node name="FireParticles" type="CPUParticles3D" parent="CannonBallSpawnPoint" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.187598)
+emitting = false
+amount = 50
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_tjj30")
+direction = Vector3(0, 0, -1)
+spread = 22.84
+gravity = Vector3(0, -2, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 12.0
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_22cav")
+color_ramp = SubResource("Gradient_jn6nc")
+color_initial_ramp = SubResource("Gradient_b1kym")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
 collision_layer = 2
