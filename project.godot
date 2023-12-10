@@ -68,6 +68,7 @@ aim={
 3d_physics/layer_2="PlayerBarrel"
 3d_physics/layer_5="CannonBall"
 3d_physics/layer_9="Structures"
+3d_physics/layer_10="Structure base"
 
 [rendering]
 
